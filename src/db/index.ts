@@ -1,12 +1,12 @@
-import { Sequelize } from "sequelize";
+import { Dialect, Sequelize } from "sequelize";
 
 const db = new Sequelize(
-  process.env.DATABASE!,
+  process.env.DB_TABLE!,
   process.env.DB_USER!,
   process.env.DB_PASSWORD!,
   {
     host: process.env.DB_HOST!,
-    dialect: 'mysql'
+    dialect: process.env.DB! as Dialect
   }
 );
 

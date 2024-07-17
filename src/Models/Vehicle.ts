@@ -39,7 +39,9 @@ Vehicle.init(
   },
   {
     sequelize: db,
-    tableName: 'vehicle'
+    tableName: 'vehicle',
+    createdAt: false,
+    updatedAt: false
   }
 );
 
