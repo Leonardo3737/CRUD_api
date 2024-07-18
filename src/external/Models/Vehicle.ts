@@ -1,5 +1,5 @@
 import { CreationOptional, DataTypes, InferAttributes, InferCreationAttributes, Model } from "sequelize";
-import IVehicle from "../../core/interfaces/IVehicle";
+import IVehicle from "../interfaces/IVehicle";
 import db from "../db"
 
 class Vehicle

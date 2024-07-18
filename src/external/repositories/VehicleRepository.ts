@@ -1,9 +1,9 @@
-import { Options, QueryOptions, WhereOptions } from "sequelize";
-import VehicleProvider from "../../core/providers/VehicleProvider";
-import IVehicle from "../../core/interfaces/IVehicle";
+import { WhereOptions } from "sequelize";
+import IVehicle from "../interfaces/IVehicle";
 import Vehicle from "../Models/Vehicle";
+import RepositoryProvider from "../../core/providers/RepositoryProvider";
 
-export default class VehicleRepository implements VehicleProvider<WhereOptions> {
+export default class VehicleRepository implements RepositoryProvider<IVehicle, WhereOptions> {
   create(obj: IVehicle){
     return Vehicle.create(obj)
   }

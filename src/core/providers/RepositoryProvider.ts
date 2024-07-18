@@ -1,4 +1,4 @@
-export default interface IRepository<Entity, IWhereOptions> {
+export default interface RepositoryProvider<Entity, IWhereOptions> {
   create(obj: Entity): Promise<Entity>
   getAll(): Promise<Entity[]>
   update(obj: Entity, where: IWhereOptions): Promise<[number]>

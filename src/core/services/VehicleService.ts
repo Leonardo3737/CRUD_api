@@ -1,13 +1,12 @@
-import IVehicle from "../interfaces/IVehicle";
-import VehicleProvider from "../providers/VehicleProvider";
+import RepositoryProvider from "../providers/RepositoryProvider";
 
-export default class VehicleService<IQueryOptions> implements UseCaseCRUD<IVehicle, IQueryOptions> {
+export default class VehicleService<Entity, IQueryOptions> implements UseCaseCRUD<Entity, IQueryOptions> {
 
   constructor(
-    private vehicleProvider: VehicleProvider<IQueryOptions>
+    private vehicleProvider: RepositoryProvider<Entity, IQueryOptions>
   ) {}
 
-  async register(vehicle: IVehicle) {
+  async register(vehicle: Entity) {
     try {
       await this.vehicleProvider.create(vehicle)
       return "Veiculo criado com sucesso!"
@@ -46,7 +45,7 @@ export default class VehicleService<IQueryOptions> implements UseCaseCRUD<IVehic
     }
   }
 
-  async update(vehicle: IVehicle, queryOptions: IQueryOptions) {
+  async update(vehicle: Entity, queryOptions: IQueryOptions) {
     try {
       await this.vehicleProvider.update(vehicle, queryOptions)
       return "Veiculo apagado com sucesso"

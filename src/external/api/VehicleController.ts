@@ -1,5 +1,5 @@
 import { Express, Request, Response } from "express";
-import IVehicle from "../../core/interfaces/IVehicle";
+import IVehicle from "../interfaces/IVehicle";
 import { WhereOptions } from "sequelize";
 
 export default class VehicleController {
