@@ -3,8 +3,10 @@ dotenv.config();
 import express from 'express'
 import cors from 'cors'
 
-import VehicleController from './api/VehicleController';
-import { dbConnectionTest } from './db';
+import VehicleController from './external/api/VehicleController';
+import { dbConnectionTest } from './external/db';
+import VehicleService from './core/services/VehicleService';
+import VehicleRepository from './external/repositories/VehicleRepository';
 
 
 const app = express()
@@ -17,4 +19,7 @@ app.listen(process.env.PORT, ()=> {
   console.log('Rodando na porta: ', process.env.PORT);
 })
 
-new VehicleController('/vehicle', app)
+
+const vehicleService = new VehicleService(new VehicleRepository())
+
+new VehicleController('/vehicle', app, vehicleService)

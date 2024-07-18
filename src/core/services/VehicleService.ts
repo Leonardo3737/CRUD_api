@@ -1,11 +1,15 @@
 import IVehicle from "../interfaces/IVehicle";
-import Vehicle from "../Models/Vehicle";
+import VehicleProvider from "../providers/VehicleProvider";
 
-export default class VehicleService {
+export default class VehicleService<IQueryOptions> implements UseCaseCRUD<IVehicle, IQueryOptions> {
 
-  static async RegisterVehicle(vehicle: IVehicle) {
+  constructor(
+    private vehicleProvider: VehicleProvider<IQueryOptions>
+  ) {}
+
+  async register(vehicle: IVehicle) {
     try {
-      await Vehicle.create(vehicle)
+      await this.vehicleProvider.create(vehicle)
       return "Veiculo criado com sucesso!"
     } 
     catch (err) {
@@ -16,9 +20,9 @@ export default class VehicleService {
     }
   }
 
-  static async getVehicles() {
+  async get() {
     try {
-      const vehicles = await Vehicle.findAll()
+      const vehicles = await this.vehicleProvider.getAll()
       return vehicles
     }
     catch (err) {
@@ -29,9 +33,9 @@ export default class VehicleService {
     }
   }
 
-  static async deleteVehicles(id: number) {
+  async delete(queryOptions: IQueryOptions) {
     try {
-      await Vehicle.destroy({where: {id}})
+      await this.vehicleProvider.delete(queryOptions)
       return "Veiculo apagado com sucesso"
     }
     catch (err) {
@@ -42,9 +46,9 @@ export default class VehicleService {
     }
   }
 
-  static async updateVehicles(vehicle: IVehicle) {
+  async update(vehicle: IVehicle, queryOptions: IQueryOptions) {
     try {
-      await Vehicle.update(vehicle, { where: {id: vehicle.id}})
+      await this.vehicleProvider.update(vehicle, queryOptions)
       return "Veiculo apagado com sucesso"
     }
     catch (err) {

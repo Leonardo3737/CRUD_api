@@ -1,16 +1,17 @@
 import { Express, Request, Response } from "express";
-import VehicleService from "../services/VehicleService";
-import IVehicle from "../interfaces/IVehicle";
+import IVehicle from "../../core/interfaces/IVehicle";
+import { WhereOptions } from "sequelize";
 
 export default class VehicleController {
   constructor(
     private route: string,
-    private app: Express
+    private app: Express,
+    private vehicleService: UseCaseCRUD<IVehicle, WhereOptions>
   ) {
 
     app.get(route, async(_, res: Response) => {
       try {
-        const resService = await VehicleService.getVehicles()
+        const resService = await vehicleService.get()
         res.status(200).send(resService)
       }
       catch (err) {
@@ -23,7 +24,7 @@ export default class VehicleController {
 
     app.post(route, async (req, res) => {
       try {
-        const resService = await VehicleService.RegisterVehicle(req.body)
+        const resService = await vehicleService.register(req.body)
         res.status(201).send(resService)
       }
       catch (err) {
@@ -36,7 +37,7 @@ export default class VehicleController {
 
     app.delete(`${route}/:id`, async (req, res) => {
       try {
-        const resService = await VehicleService.deleteVehicles(parseInt(req.params.id))
+        const resService = await vehicleService.delete({id: req.params.id})
         res.status(204).send(resService)
       }
       catch (err) {
@@ -47,9 +48,9 @@ export default class VehicleController {
       }
     })
 
-    app.put(route, async (req, res) => {
+    app.put(`${route}/:id`, async (req, res) => {
       try {
-        const resService = await VehicleService.updateVehicles(req.body)
+        const resService = await vehicleService.update(req.body, {id: req.params.id})
         res.status(204).send(resService)
       }
       catch (err) {
