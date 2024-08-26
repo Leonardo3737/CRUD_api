@@ -22,13 +22,29 @@ export default class VehicleController {
       }
     })
 
+    app.get(`${route}/:id`, async (req, res) => {
+      try {
+        const id = parseInt(req.params.id)
+        const resService = await vehicleService.getVehicleById(id)
+        res.status(200).send(resService)
+      }
+      catch (err) {
+        if(err instanceof Error){
+          res.status(500).send(err.message);
+        }
+        res.status(500).send("Erro ao consultar veiculo")
+      }
+    })
+
     app.post(route, async (req, res) => {
       try {
+        console.log("ENTROU AQUIIIII")
         const resService = await vehicleService.register(req.body)
         res.status(201).send(resService)
       }
       catch (err) {
         if(err instanceof Error){
+          console.log("ENTROU AQUIIIII (NO IF)")
           res.status(500).send(err.message);
         }
         res.status(500).send("Erro ao cadastrar veiculo")

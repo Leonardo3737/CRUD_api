@@ -8,6 +8,12 @@ export default class VehicleRepository implements RepositoryProvider<IVehicle, W
     return Vehicle.create(obj)
   }
 
+  getById(id: number){
+    const vehicle = Vehicle.findByPk(id)
+    console.log(vehicle)
+    return vehicle
+  }
+
   getAll(){
     return Vehicle.findAll();  
   }
@@ -19,4 +25,5 @@ export default class VehicleRepository implements RepositoryProvider<IVehicle, W
   delete(where: WhereOptions){
     return Vehicle.destroy({ where })
   }
+  
 }

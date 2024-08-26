@@ -7,14 +7,14 @@ class Vehicle
   implements IVehicle {
   declare id: CreationOptional<number>
   declare vehicle_type: string | null
-  declare id_model: number | null
+  declare id_model: string | null
   declare model: string | null
   declare id_brand: number | null
   declare brand: string | null
   declare year: string | null
-  declare price: number | null
+  declare price: string | null
   declare notes: string | null
-  declare km: number | null
+  declare km: string | null
   declare color: string | null
 }
 
@@ -39,7 +39,7 @@ Vehicle.init(
       allowNull: false,
     },
     id_model: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING,
       allowNull: false,
     },
     model: {
@@ -59,7 +59,7 @@ Vehicle.init(
       allowNull: false,
     },
     km: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING,
       allowNull: false,
     },
     color: {
