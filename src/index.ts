@@ -7,6 +7,8 @@ import VehicleController from './external/api/VehicleController';
 import { dbConnectionTest } from './external/db';
 import VehicleService from './core/services/VehicleService';
 import VehicleRepository from './external/repositories/VehicleRepository';
+import IVehicle from './external/interfaces/IVehicle';
+import { WhereOptions } from 'sequelize';
 
 
 const app = express()
@@ -20,6 +22,6 @@ app.listen(process.env.PORT, ()=> {
 })
 
 
-const vehicleService = new VehicleService(new VehicleRepository())
+const vehicleService = new VehicleService<IVehicle, WhereOptions>(new VehicleRepository())
 
 new VehicleController('/vehicle', app, vehicleService)

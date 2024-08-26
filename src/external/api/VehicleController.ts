@@ -16,6 +16,9 @@ export default class VehicleController {
       }
       catch (err) {
         if(err instanceof Error){
+          if(err.message === "NotFound") {
+            res.status(404).send("Veiculo não encontrado")
+          }
           res.status(500).send(err.message);
         }
         res.status(500).send("Erro ao buscar veiculo")
@@ -38,13 +41,11 @@ export default class VehicleController {
 
     app.post(route, async (req, res) => {
       try {
-        console.log("ENTROU AQUIIIII")
         const resService = await vehicleService.register(req.body)
         res.status(201).send(resService)
       }
       catch (err) {
         if(err instanceof Error){
-          console.log("ENTROU AQUIIIII (NO IF)")
           res.status(500).send(err.message);
         }
         res.status(500).send("Erro ao cadastrar veiculo")

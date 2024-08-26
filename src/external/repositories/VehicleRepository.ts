@@ -10,7 +10,6 @@ export default class VehicleRepository implements RepositoryProvider<IVehicle, W
 
   getById(id: number){
     const vehicle = Vehicle.findByPk(id)
-    console.log(vehicle)
     return vehicle
   }
 

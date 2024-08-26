@@ -9,7 +9,9 @@ export default class VehicleService<Entity, IQueryOptions> implements UseCaseCRU
   async getVehicleById(id: number) {
     try {
       const vehicle = await this.vehicleProvider.getById(id)
-      console.log("esse é o veiculo: "+await vehicle)
+      if(!vehicle) {
+        throw Error("NotFound")
+      }
       return vehicle
     }
     catch (err) {
