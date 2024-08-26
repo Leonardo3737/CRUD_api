@@ -16,9 +16,26 @@ export default class VehicleController {
       }
       catch (err) {
         if(err instanceof Error){
+          if(err.message === "NotFound") {
+            res.status(404).send("Veiculo não encontrado")
+          }
           res.status(500).send(err.message);
         }
         res.status(500).send("Erro ao buscar veiculo")
+      }
+    })
+
+    app.get(`${route}/:id`, async (req, res) => {
+      try {
+        const id = parseInt(req.params.id)
+        const resService = await vehicleService.getVehicleById(id)
+        res.status(200).send(resService)
+      }
+      catch (err) {
+        if(err instanceof Error){
+          res.status(500).send(err.message);
+        }
+        res.status(500).send("Erro ao consultar veiculo")
       }
     })
 

@@ -6,6 +6,22 @@ export default class VehicleService<Entity, IQueryOptions> implements UseCaseCRU
     private vehicleProvider: RepositoryProvider<Entity, IQueryOptions>
   ) {}
 
+  async getVehicleById(id: number) {
+    try {
+      const vehicle = await this.vehicleProvider.getById(id)
+      if(!vehicle) {
+        throw Error("NotFound")
+      }
+      return vehicle
+    }
+    catch (err) {
+      if(err instanceof Error){
+        throw new Error("Erro ao buscar veiculos: " + err.message);
+      }
+      throw new Error("Erro ao buscar veiculos")
+    }
+  }
+
   async register(vehicle: Entity) {
     try {
       await this.vehicleProvider.create(vehicle)
